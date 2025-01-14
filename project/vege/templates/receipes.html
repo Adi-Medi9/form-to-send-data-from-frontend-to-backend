@@ -8,7 +8,7 @@
   </head>
 </head>
 <body>
-    this is first page.
+    {% comment %} this is first page. {% endcomment %}
     <div class="container mt-5">
         <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -34,6 +34,48 @@
 
             <button type="submit" class="btn btn-success">Add Receipe</button>
           </form>
+    <hr>
+    <div class="mt-5">
+      <div class="mx-auto col-6">
+        <form>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Search Food</label>
+          <input type="text" class="form-control" name="search">
+        </div>
+        <button type="submit" class="btn btn-primary">Search Here</button>
+      </form>
+      </div>
+    </div>      
+       
+    
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Receipe Name</th>
+          <th scope="col">Receipe Description</th>
+          <th scope="col">Image</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for receipe in receipes %}
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{receipe.receipe_name}}</td>
+          <td>{{receipe.receipe_description}}</td>
+          <td>
+            <img src="/media/{{receipe.receipe_image}}" style="height:50px">
+          </td>
+          <td>
+            <a href="/delete_receipe/{{receipe.id}}" class="btn btn-danger m-2">DELETE</a>
+            <a href="/update_receipe/{{receipe.id}}" class="btn btn-success">UPDATE</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
     </div>
 </body>
 </html>
